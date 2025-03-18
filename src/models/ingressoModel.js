@@ -13,19 +13,19 @@ const getIngressoById = async (id) => {
     };
 
 
-const createIngresso = async (nome, email, evento, local, data_evento, categoria, preco, quantidade_disponivel) => {
+const createIngresso = async (evento, local, data_evento, categoria, preco, quantidade_disponivel) => {
     const result = await pool.query(
-        "INSERT INTO ingressos (nome, email, evento, local, data_evento, categoria, preco, quantidade_disponivel) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
-        [nome, email, evento, local, data_evento, categoria, preco, quantidade_disponivel]
+        "INSERT INTO ingressos (evento, local, data_evento, categoria, preco, quantidade_disponivel) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+        [evento, local, data_evento, categoria, preco, quantidade_disponivel]
     );
     return result.rows[0];
     };
 
 
-const updateIngresso = async (id, nome, email, evento, local, data_evento, categoria, preco, quantidade_disponivel) => {
+const updateIngresso = async (id, evento, local, data_evento, categoria, preco, quantidade_disponivel) => {
     const result = await pool.query(
         "UPDATE ingressos SET evento = $1, local = $2, data_evento = $3, categoria = $4, preco = $5, quantidade_disponivel = $6 WHERE id = $7 RETURNING *",
-    [nome, email, evento, local, data_evento, categoria, preco, quantidade_disponivel, id]
+    [evento, local, data_evento, categoria, preco, quantidade_disponivel, id]
     );
         return result.rows[0];
 };
