@@ -16,6 +16,6 @@ CREATE TABLE ingressos (
 
 INSERT INTO ingressos (evento, local, data_evento, categoria, preco,  quantidade_disponivel) VALUES
 ('Show Henrique & Juliano', 'jaguariuna', '2025-09-10', 'Camarote', 250.00, 100),
-('Show Henrique & Juliano', 'jaguariuna', '2025-09-10', 'VIP', 360.00, 26),
-('Show Henrique & Juliano', 'jaguariuna', '2025-09-10', 'Arquibancada', 389.90, 200);
+('Show Henrique & Juliano', 'jaguariuna', '2025-09-10', 'VIP', 360.00, 51),
+('Show Henrique & Juliano', 'jaguariuna', '2025-09-10', 'Arquibancada', 389.90, 06);
 
