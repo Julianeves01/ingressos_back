@@ -1,77 +1,83 @@
 const ingressoModel = require("../models/ingressoModel");
 
-const getAllIngresso = async (req, res) => {
+const getIngressos = async (req, res) => {
     try {
-        const ingressos = await ingressoModel.getIngressos();
-        res.json(ingressos);
+      const ingressos = await ingressoModel.getIngressos();
+      res.json(ingressos);
     } catch (error) {
-        res.status(500).json({ message: "Erro ao buscar ingressos." });
+      res.status(500).json({ message: "Erro ao buscar ingressos" });
     }
-};
-
-const getIngresso = async (req, res) => {
+  };
+  
+  const getIngresso = async (req, res) => {
     try {
-        const ingresso = await ingressoModel.getIngressoById(req.params.id);
-        if (!ingresso) {
-            return res.status(404).json({ message: "Ingresso não encontrado." });
-        }
-        res.json(ingresso);
+      const ingresso = await ingressoModel.getIngressoById(req.params.id);
+      if (!ingresso) {
+        return res.status(404).json({ message: "Ingresso não encontrado" });
+      }
+      res.json(ingresso);
     } catch (error) {
-        res.status(500).json({ message: "Erro ao buscar ingresso." });
+      res.status(500).json({ message: "Erro ao buscar ingresso" });
     }
-};
-
-const createIngresso = async (req, res) => {
+  };
+  
+  const createIngresso = async (req, res) => {
     try {
-        const { evento, local, data_evento, categoria, preco, quantidade_disponivel } = req.body;
-        const newIngresso = await ingressoModel.createIngresso(evento, local, data_evento, categoria, preco, quantidade_disponivel);
-        res.status(201).json(newIngresso);
+      const{ evento, local, data_evento, categoria, preco, quantidade_disponivel } = req.body;
+      const newIngresso = await ingressoModel.createIngresso(evento, data_evento, local, categoria, preco, quantidade_disponivel);
+      
+      if (newIngresso.error) {
+        return res.status(400).json({ message: newIngresso.error });
+      }
+  
+      res.status(201).json(newIngresso);
     } catch (error) {
-        res.status(500).json({ message: "Erro ao criar ingresso." });
+      console.error(error);
+      res.status(500).json({ message: "Erro ao criar ingresso." });
     }
-};
-
-const updateIngresso = async (req, res) => {
+  };
+  
+  const updateIngresso = async (req, res) => {
     try {
-        const { evento, local, data_evento, categoria, preco, quantidade_disponivel } = req.body;
-        const updatedIngresso = await ingressoModel.updateIngresso(req.params.id, evento, local, data_evento, categoria, preco, quantidade_disponivel);
-        if (!updatedIngresso) {
-            return res.status(404).json({ message: "Ingresso não encontrado." });
-        }
-        res.json(updatedIngresso);
+      const{ evento, local, data_evento, categoria, preco, quantidade_disponivel } = req.body;
+      const updated = await ingressoModel.updateIngresso(req.params.id, evento, data_evento, local, categoria, preco, quantidade_disponivel);
+      if (!updated) {
+        return res.status(404).json({ message: "Ingresso não encontrado" });
+      }
+      res.json(updated);
     } catch (error) {
-        res.status(500).json({ message: "Erro ao atualizar ingresso." });
+      res.status(500).json({ message: "Erro ao atualizar ingresso" });
     }
-};
-
-const deleteIngresso = async (req, res) => {
+  };
+  
+  const deleteIngresso = async (req, res) => {
     try {
-        const deleted = await ingressoModel.deleteIngresso(req.params.id);
-        if (!deleted) {
-            return res.status(404).json({ message: "Ingresso não encontrado." });
-        }
-        res.json({ message: "Ingresso deletado com sucesso." });
+      const message = await ingressoModel.deleteIngresso(req.params.id);
+      res.json({ message });
     } catch (error) {
-        res.status(500).json({ message: "Erro ao deletar ingresso." });
+      res.status(500).json({ message: "Erro ao deletar ingresso" });
     }
-};
-
-const vendaIngresso = async (req, res) => {
+  };
+  
+  const vendaIngresso = async (req, res) => {
     try {
-        const { id, quantidade } = req.body;
-        const result = await ingressoModel.vendaIngresso(id, quantidade);
-        res.json(result);
+      const { id, quantidade_requerida } = req.body;
+      const venda = await ingressoModel.vendaIngresso(id, quantidade_requerida);
+      if (venda.error) {
+        return res.status(400).json({ message: venda.error });
+      }
+      res.status(201).json(venda);
     } catch (error) {
-        res.status(400).json({ erro: error.message });
+      console.error(error);
+      res.status(500).json({ message: "Erro ao vender ingresso" });
     }
-};
-
-module.exports = {
-    getAllIngresso,
+  };
+  
+  module.exports = {
+    getIngressos,
     getIngresso,
     createIngresso,
     updateIngresso,
     deleteIngresso,
-    vendaIngresso,
-};
-
+    vendaIngresso
+  };

@@ -1,11 +1,9 @@
-CREATE DATABASE festivais_db;
+CREATE DATABASE ingressos_db;
 
-\c festivais_db;
+\c ingressos_db;
 
 CREATE TABLE ingressos (
     id SERIAL PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
     evento VARCHAR(255) NOT NULL,
     local VARCHAR(255) NOT NULL,
     data_evento DATE NOT NULL,
