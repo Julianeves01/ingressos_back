@@ -25,26 +25,24 @@ const getIngressos = async (req, res) => {
     try {
       const{ evento, local, data_evento, categoria, preco, quantidade_disponivel } = req.body;
       const newIngresso = await ingressoModel.createIngresso(evento, data_evento, local, categoria, preco, quantidade_disponivel);
-      
-      if (newIngresso.error) {
-        return res.status(400).json({ message: newIngresso.error });
-      }
-  
       res.status(201).json(newIngresso);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Erro ao criar ingresso." });
+      if (error.code === '23505') { 
+        return res.status(400).json({ message: "Ingresso já existe" });
+      }
+      res.status(500).json({ message: "Erro ao criar ingresso" });
     }
   };
   
   const updateIngresso = async (req, res) => {
     try {
       const{ evento, local, data_evento, categoria, preco, quantidade_disponivel } = req.body;
-      const updated = await ingressoModel.updateIngresso(req.params.id, evento, data_evento, local, categoria, preco, quantidade_disponivel);
-      if (!updated) {
+      const updateIngresso = await ingressoModel.updateIngresso(req.params.id, evento, data_evento, local, categoria, preco, quantidade_disponivel);
+      if (!updateIngresso) {
         return res.status(404).json({ message: "Ingresso não encontrado" });
       }
-      res.json(updated);
+      res.json(updateIngresso);
     } catch (error) {
       res.status(500).json({ message: "Erro ao atualizar ingresso" });
     }
@@ -59,17 +57,20 @@ const getIngressos = async (req, res) => {
     }
   };
   
-  const vendaIngresso = async (req, res) => {
+  const createVenda = async (req, res) => {
     try {
       const { id, quantidade_requerida } = req.body;
-      const venda = await ingressoModel.vendaIngresso(id, quantidade_requerida);
-      if (venda.error) {
-        return res.status(400).json({ message: venda.error });
+      const newVenda = await ingressoModel.createVenda(id, quantidade_requerida);
+      if (newVenda.error) {
+        return res.status(400).json({ message: newVenda.error });
       }
-      res.status(201).json(venda);
+      res.status(201).json(newVenda);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Erro ao vender ingresso" });
+      if (error.code ==="23505") {
+        return res.status(400).json({message: "Ingresso já vendido!"});
+      }
+      res.status(500).json({ message: "Erro ao comprar ingresso" });
     }
   };
   
@@ -79,5 +80,5 @@ const getIngressos = async (req, res) => {
     createIngresso,
     updateIngresso,
     deleteIngresso,
-    vendaIngresso
+    createVenda
   };
