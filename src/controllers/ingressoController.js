@@ -80,5 +80,5 @@ const getIngressos = async (req, res) => {
     createIngresso,
     updateIngresso,
     deleteIngresso,
-    createVenda
+    createVenda,
   };
