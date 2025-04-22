@@ -7,8 +7,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-app.use("/api", ingressoRoutes);
+// Use as rotas diretamente
+app.use("/", ingressoRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
