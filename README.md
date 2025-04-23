@@ -5,7 +5,7 @@ Bem-vindo à API de controle de ingressos para eventos! Essa aplicação permite
 ## 📁 Estrutura do Projeto
 
 ```
-.
+
 ├── src
 │   ├── config         # Configuração do banco de dados PostgreSQL
 │   ├── controllers    # Lógica dos endpoints
@@ -86,9 +86,13 @@ npx nodemon server.js
 
 ---
 
-
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Consulte o arquivo `LICENSE` para mais informações.
 
 ---
+
+## 👩‍💻 | Desenvolvido por **Julia Neves**.
+
+[![GitHub](https://img.shields.io/badge/GitHub-000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Julianeves01)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/julia-neves-252b202b1/)
