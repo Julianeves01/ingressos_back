@@ -5,7 +5,6 @@ Bem-vindo à API de controle de ingressos para eventos! Essa aplicação permite
 ## 📁 Estrutura do Projeto
 
 ```
-
 ├── src
 │   ├── config         # Configuração do banco de dados PostgreSQL
 │   ├── controllers    # Lógica dos endpoints
